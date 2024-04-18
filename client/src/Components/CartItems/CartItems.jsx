@@ -9,7 +9,7 @@ const CartItems = () => {
   const [allProducts, setAllProducts] = useState([]);
 
   const fetchInfo = async () => {
-    await fetch("https://wired-wisdom.vercel.app//all/products")
+    await fetch("http://localhost:4000/all/products")
       .then((res) => res.json())
       .then((data) => {
         setAllProducts(data);

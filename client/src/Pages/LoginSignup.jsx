@@ -16,7 +16,7 @@ const LoginSignup = () => {
   const login = async () => {
     console.log("Login function executed", formData);
     let responseData;
-    await fetch("https://wired-wisdom.vercel.app//login", {
+    await fetch("http://localhost:4000/login", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -39,7 +39,7 @@ const LoginSignup = () => {
   const signup = async () => {
     console.log("Signup function executed", formData);
     let responseData;
-    await fetch("https://wired-wisdom.vercel.app//signup", {
+    await fetch("http://localhost:4000/signup", {
       method: "POST",
       headers: {
         Accept: "application/json",

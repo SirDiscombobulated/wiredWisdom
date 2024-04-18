@@ -11,13 +11,7 @@ const Product = require("./models/Product");
 const User = require("./models/User");
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: "https://wired-wisdom-client.vercel.app",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URI);
 

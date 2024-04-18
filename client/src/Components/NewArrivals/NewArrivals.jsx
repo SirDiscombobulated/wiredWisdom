@@ -6,7 +6,7 @@ const NewArrivals = () => {
   const [newArrivals, setNewArrivals] = useState([]);
 
   const fetchInfo = async () => {
-    await fetch("https://wired-wisdom.vercel.app//latest/products")
+    await fetch("http://localhost:4000/latest/products")
       .then((res) => res.json())
       .then((data) => {
         setNewArrivals(data);
