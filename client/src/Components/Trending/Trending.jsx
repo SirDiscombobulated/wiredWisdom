@@ -6,7 +6,7 @@ const Trending = () => {
   const [randomProducts, setRandomProducts] = useState([]);
 
   const fetchInfo = async () => {
-    await fetch("http://localhost:4000/random/products")
+    await fetch("https://wired-wisdom.vercel.app//random/products")
       .then((res) => res.json())
       .then((data) => {
         setRandomProducts(data);

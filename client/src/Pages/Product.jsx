@@ -10,7 +10,7 @@ const Product = () => {
   const fetchInfo = async (productId) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/product/${productId}`
+        `https://wired-wisdom.vercel.app//product/${productId}`
       );
       if (!response.ok) {
         throw new Error(`Failed to fetch product with ID ${productId}`);

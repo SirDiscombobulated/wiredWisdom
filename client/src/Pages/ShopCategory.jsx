@@ -6,7 +6,7 @@ const ShopCategory = (props) => {
   const [allProducts, setAllProducts] = useState([]);
 
   const fetchInfo = async () => {
-    await fetch("http://localhost:4000/all/products")
+    await fetch("https://wired-wisdom.vercel.app//all/products")
       .then((res) => res.json())
       .then((data) => {
         setAllProducts(data);
