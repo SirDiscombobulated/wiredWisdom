@@ -1,4 +1,5 @@
-const PORT = 4000;
+require("dotenv").config();
+const PORT = process.env.PORT || 4000;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -6,13 +7,13 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
+const Product = require("./models/Product");
+const User = require("./models/User");
 
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(
-  "mongodb+srv://andrewlin101:<password>@cluster0.gfigo7o.mongodb.net/wiredWisdom"
-);
+mongoose.connect(process.env.MONGODB_URI);
 
 app.get("/", (req, res) => {
   res.send("Express App is running");
@@ -38,41 +39,6 @@ app.post("/upload", upload.single("product"), (req, res) => {
     success: 1,
     image_url: `http://localhost:${PORT}/images/${req.file.filename}`,
   });
-});
-
-const Product = mongoose.model("Product", {
-  id: {
-    type: Number,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
-  },
-  category: {
-    type: String,
-    required: true,
-  },
-  new_price: {
-    type: Number,
-    required: true,
-  },
-  old_price: {
-    type: Number,
-    required: true,
-  },
-  date: {
-    type: Date,
-    default: Date.now(),
-  },
-  available: {
-    type: Boolean,
-    default: true,
-  },
 });
 
 app.post("/add/product", async (req, res) => {
@@ -163,26 +129,6 @@ app.get("/latest/products", async (req, res) => {
   }
 });
 
-const User = mongoose.model("User", {
-  name: {
-    type: String,
-  },
-  email: {
-    type: String,
-    unique: true,
-  },
-  password: {
-    type: String,
-  },
-  cartData: {
-    type: Object,
-  },
-  date: {
-    type: Date,
-    default: Date.now(),
-  },
-});
-
 app.post("/signup", async (req, res) => {
   let check = await User.findOne({ email: req.body.email });
   if (check) {
@@ -207,7 +153,7 @@ app.post("/signup", async (req, res) => {
       id: user.id,
     },
   };
-  const token = jwt.sign(data, "secret_ecom");
+  const token = jwt.sign(data, process.env.JWT_SECRET);
   res.json({ success: true, token });
 });
 
@@ -221,7 +167,7 @@ app.post("/login", async (req, res) => {
           id: user.id,
         },
       };
-      const token = jwt.sign(data, "secret_ecom");
+      const token = jwt.sign(data, process.env.JWT_SECRET);
       res.json({ success: true, token });
     } else {
       res.json({ success: false, errors: "Wrong password" });
